@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: webmethods-edge-runtime
-  namespace: uwv-project
   labels:
     app: webmethods-edge-runtime
     app.kubernetes.io/component: webmethods-edge-runtime
