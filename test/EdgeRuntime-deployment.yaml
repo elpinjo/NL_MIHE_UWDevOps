@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: webmethods-edge-runtime
+  labels:
+    app: webmethods-edge-runtime
+    app.kubernetes.io/component: webmethods-edge-runtime
+    app.kubernetes.io/instance: webmethods-edge-runtime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: webmethods-edge-runtime
+  template:
+    metadata:
+      labels:
+        deployment: webmethods-edge-runtime
+    spec:
+      containers:
+        - name: webmethods-edge-runtime
+          image: 'ghcr.io/geertwesemael/helloworld-app-2:111'
+          ports:
+            - containerPort: 5543
+              protocol: TCP
+            - containerPort: 5555
+              protocol: TCP
+            - containerPort: 9999
+              protocol: TCP
+          env:
+            - name: SAG_IS_CLOUD_REGISTER_URL
+              value: 'https://dev5312404.a-fra-c1.int.ipaas.automation.ibm.com'
+            - name: SAG_IS_EDGE_CLOUD_ALIAS
+              value: EdgeRuntime_NL_GW_UwEdge_Production
+            - name: SAG_IS_CLOUD_REGISTER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: is-secrets
+                  key: SAG_IS_CLOUD_REGISTER_TOKEN
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      securityContext: {}
