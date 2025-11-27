@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: webmethods-edge-runtime
-          image: 'ghcr.io/geertwesemael/uw-project:149'
+          image: 'ghcr.io/geertwesemael/uw-project:150'
           ports:
             - containerPort: 5543
               protocol: TCP
